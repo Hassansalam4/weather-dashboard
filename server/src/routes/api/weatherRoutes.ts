@@ -1,20 +1,58 @@
 import { Router } from 'express';
 const router = Router();
 
-// import HistoryService from '../../service/historyService.js';
-// import WeatherService from '../../service/weatherService.js';
+// Import HistoryService and WeatherService
+import HistoryService from '../../service/historyService.js';
+import WeatherService from '../../service/weatherService.js';
 
-// TODO: POST Request with city name to retrieve weather data
-router.post('/', (req, res) => {
-  // TODO: GET weather data from city name
-  
-  // TODO: save city to search history
+// POST request to get weather data for a city
+router.post('/', async (req, res) => {
+  const { city } = req.body;
+
+  if (!city) {
+    return res.status(400).json({ error: 'City name is required.' });
+  }
+
+  try {
+    // Get weather data using WeatherService
+    const weatherData = await WeatherService.getWeatherByCity(city);
+
+    // Save city search to history using HistoryService
+    await HistoryService.saveCitySearch(city);
+
+    // Send weather data as the response
+    res.json({ weather: weatherData });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Failed to retrieve weather data.' });
+  }
 });
 
-// TODO: GET search history
-router.get('/history', async (req, res) => {});
+// GET request to retrieve search history
+router.get('/history', async (req, res) => {
+  try {
+    // Retrieve search history using HistoryService
+    const history = await HistoryService.getSearchHistory();
+    res.json({ history });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Failed to retrieve search history.' });
+  }
+});
 
-// * BONUS TODO: DELETE city from search history
-router.delete('/history/:id', async (req, res) => {});
+// DELETE request to remove a city from search history by id
+router.delete('/history/:id', async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    // Delete city from history using HistoryService
+    await HistoryService.deleteCityFromHistory(id);
+    res.status(200).json({ message: 'City removed from search history.' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Failed to delete city from search history.' });
+  }
+});
 
 export default router;
+
