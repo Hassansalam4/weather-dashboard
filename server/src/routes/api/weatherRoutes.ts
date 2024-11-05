@@ -18,7 +18,7 @@ router.post('/', async (req, res) => {
     const weatherData = await WeatherService.getWeatherForCity(city);
 
     // Save city search to history using HistoryService
-    await HistoryService.saveCitySearch(city);
+    await HistoryService.addCity(city);
 
     // Send weather data as the response
     res.json({ weather: weatherData });
@@ -29,10 +29,10 @@ router.post('/', async (req, res) => {
 });
 
 // GET request to retrieve search history
-router.get('/history', async (req, res) => {
+router.get('/history', async (_req, res) => {
   try {
     // Retrieve search history using HistoryService
-    const history = await HistoryService.getSearchHistory();
+    const history = await HistoryService.getCities();
     res.json({ history });
   } catch (error) {
     console.error(error);
@@ -46,7 +46,7 @@ router.delete('/history/:id', async (req, res) => {
 
   try {
     // Delete city from history using HistoryService
-    await HistoryService.deleteCityFromHistory(id);
+    await HistoryService.removeCity(id);
     res.status(200).json({ message: 'City removed from search history.' });
   } catch (error) {
     console.error(error);

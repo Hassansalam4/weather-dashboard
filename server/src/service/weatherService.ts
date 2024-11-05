@@ -51,7 +51,7 @@ class Weather {
     const url = this.buildGeocodeQuery(query);
     const response = await axios.get(url);
     return response.data;
-
+  }
   // TODO: Create destructureLocationData method
 
   private destructureLocationData(locationData: any): Coordinates {
@@ -88,7 +88,7 @@ class Weather {
     const { temp: temperature, humidity } = response.main;
     const description = response.weather[0].description;
     return new Weather(temperature, humidity, description);
- 
+  }
   // TODO: Complete buildForecastArray method
 
   private buildForecastArray(currentWeather: Weather, weatherData: any[]): Weather[] {
@@ -104,6 +104,6 @@ class Weather {
     return this.parseCurrentWeather(weatherResponse);
   }
 }
-}
+
 
 export default new WeatherService();

@@ -16,9 +16,8 @@ app.use(express.static(path.join(__dirname, 'client', 'dist')));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
- Connect the routes
+
 app.use(routes);
 
- Start the server on the port
 
 app.listen(PORT, () => console.log(`Listening on PORT: ${PORT}`));
