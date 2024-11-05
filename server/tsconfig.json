@@ -10,6 +10,6 @@
   },
   "include": ["src"]
 }
-create a new tsconfig.json file in the server directory with the following content:
+
 
 
