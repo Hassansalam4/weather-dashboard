@@ -1,5 +1,6 @@
 import dotenv from 'dotenv';
 dotenv.config();
+import axios from 'axios';
 
 // TODO: Define an interface for the Coordinates object
 
@@ -21,30 +22,25 @@ class Weather {
   }
 }
 
-
-
-
-
-
-
-
-
-
 // TODO: Complete the WeatherService class
 
   class WeatherService {
-    private baseURL: string = 'https://api.openweathermap.org';
-    private apiKey: string = process.env.WEATHER_API_KEY || '';
-    private cityName: string = '';
+    private baseURL?: string;
+    private apiKey?: string;
+    private cityName?: string; 
+
+    
+
   
     constructor() {
+      this.baseURL = process.env.API_BASE_URL || '';
+      this.apiKey = process.env.API_KEY|| '';
       if (!this.apiKey) {
         throw new Error('API key is required');
       }
     }
 
   // TODO: Define the baseURL, API key, and city name properties
-  private baseURL: string = 'https://api.openweathermap.org';
   // TODO: Create fetchLocationData method
 
   private async fetchLocationData(query: string): Promise<any> {

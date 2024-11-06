@@ -6,19 +6,19 @@ import HistoryService from '../../service/historyService.js';
 import WeatherService from '../../service/weatherService.js';
 
 // POST request to get weather data for a city
-router.post('/', async (req, res) => {
-  const { city } = req.body;
+router.post('/', (req, res) => {
+  const { cityName } = req.body;
 
-  if (!city) {
+  if (!cityName) {
     return res.status(400).json({ error: 'City name is required.' });
   }
 
   try {
     // Get weather data using WeatherService
-    const weatherData = await WeatherService.getWeatherForCity(city);
+    const weatherData = WeatherService.getWeatherForCity(cityName);
 
     // Save city search to history using HistoryService
-    await HistoryService.addCity(city);
+    HistoryService.addCity(cityName);
 
     // Send weather data as the response
     res.json({ weather: weatherData });
