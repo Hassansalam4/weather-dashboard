@@ -14,19 +14,19 @@ class City {
 
 // TODO: Complete the HistoryService class
 class HistoryService {
-  // TODO: Define a read method that reads from the searchHistory.json file
+  // TODO: Define a read method that reads from the db.json file
   private async read() {
-    const data = await readFile('searchHistory.json', 'utf-8');
+    const data = await readFile('./db/db.json', 'utf-8');
 return data
 
   }
 
-  // TODO: Define a write method that writes the updated cities array to the searchHistory.json file
+  // TODO: Define a write method that writes the updated cities array to the db.json file
   private async write(cities: City[]) {
-    await writeFile('searchHistory.json', JSON.stringify(cities, null, 2));
+    await writeFile('./db/db.json', JSON.stringify(cities, null, 2));
   }
 
-  // TODO: Define a getCities method that reads the cities from the searchHistory.json file and returns them as an array of City objects
+  // TODO: Define a getCities method that reads the cities from the db.json file and returns them as an array of City objects
   async getCities() {
     try {
 let cities:City[];
@@ -37,7 +37,7 @@ cities=JSON.parse(await this.read())
       return [];
     }
   }
-  // TODO: Define an addCity method that adds a city to the searchHistory.json file
+  // TODO: Define an addCity method that adds a city to the db.json file
   async addCity(cityName: string) {
     try {
       const cities:City[] = await this.getCities();
@@ -49,7 +49,7 @@ cities=JSON.parse(await this.read())
       console.error('Error adding city:', error);
     }
   }
-  // * BONUS TODO: Define a removeCity method that removes a city from the searchHistory.json file
+  // * BONUS TODO: Define a removeCity method that removes a city from the db.json file
   async removeCity(id: string) {
     try {
       const cities = await this.getCities();

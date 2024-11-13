@@ -6,7 +6,7 @@ import HistoryService from '../../service/historyService.js';
 import WeatherService from '../../service/weatherService.js';
 
 // POST request to get weather data for a city
-router.post('/', (req, res) => {
+router.post('/', async (req, res) => {
   const { cityName } = req.body;
 
   if (!cityName) {
@@ -14,17 +14,17 @@ router.post('/', (req, res) => {
   }
 
   try {
-    // Get weather data using WeatherService
-    const weatherData = WeatherService.getWeatherForCity(cityName);
+    // Get weather data using WeatherService (await the promise if it's asynchronous)
+    const weatherData = await WeatherService.getWeatherForCity(cityName);
 
     // Save city search to history using HistoryService
-    HistoryService.addCity(cityName);
+    await HistoryService.addCity(cityName);
 
     // Send weather data as the response
-    res.json({ weather: weatherData });
+    return res.json({ weather: weatherData });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Failed to retrieve weather data.' });
+    return res.status(500).json({ error: 'Failed to retrieve weather data.' });
   }
 });
 
@@ -55,4 +55,17 @@ router.delete('/history/:id', async (req, res) => {
 });
 
 export default router;
+
+
+
+
+
+
+
+
+
+
+
+
+
 
