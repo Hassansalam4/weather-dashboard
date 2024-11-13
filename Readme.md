@@ -1,3 +1,11 @@
+# Weather-Dashboard
+
+## Deployment
+View deployed application [here]("www.example.com")
+
+
+![deployment-img](./assets/deployed.png)
+
 User Story
 
 AS A traveler
