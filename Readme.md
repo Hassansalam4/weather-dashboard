@@ -1,7 +1,7 @@
 # Weather-Dashboard
 
 ## Deployment
-View deployed application [here]("www.example.com")
+View deployed application [here]("https://weather-dashboard-nynv.onrender.com")
 
 
 ![deployment-img](./assets/deployed.png)
